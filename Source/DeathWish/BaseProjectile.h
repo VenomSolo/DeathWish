@@ -1,3 +1,5 @@
+
+
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
@@ -36,7 +38,7 @@ public:
 
 	UPROPERTY(Category = Variables, EditAnywhere, BlueprintReadWrite)
 		ETeamEnum team;
-
+//Dodane przez GitHuba
 
 public:	
 	// Sets default values for this actor's properties
