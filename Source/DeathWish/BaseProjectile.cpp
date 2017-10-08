@@ -19,7 +19,7 @@ ABaseProjectile::ABaseProjectile()
 	mesh->AttachToComponent(collision, FAttachmentTransformRules::KeepWorldTransform, "mesh");
 	ribbon = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ribbon"));
 	ribbon->AttachToComponent(mesh, FAttachmentTransformRules::KeepWorldTransform, "ribbon");
-	movement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("movement"));
+	//movement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("movement"));
 
 }
 

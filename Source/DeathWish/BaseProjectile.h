@@ -28,8 +28,8 @@ public:
 	UPROPERTY(Category = Components, VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 		class UParticleSystemComponent* ribbon;
 
-	UPROPERTY(Category = movement, VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-		class UProjectileMovementComponent* movement;
+	//UPROPERTY(Category = movement, VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	//	class UProjectileMovementComponent* movement;
 
 	UPROPERTY(Category = Variables, EditAnywhere, BlueprintReadWrite)
 		float damage;
