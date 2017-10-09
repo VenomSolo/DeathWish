@@ -13,6 +13,29 @@ enum class ETeamEnum : uint8
 	TE_Green	UMETA(DisplayName = "Green"),
 };
 
+USTRUCT(BlueprintType)
+struct FStatisticsStruct
+{
+	GENERATED_BODY()
+		
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float health;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float armour;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float walkSpeed;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float eCooldown;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float qCooldown;
+	
+}
+
 class DEATHWISH_API EnumsAndStructs
 {
 public:
