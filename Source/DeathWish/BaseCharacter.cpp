@@ -47,6 +47,9 @@ ABaseCharacter::ABaseCharacter()
 	//Camera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	Camera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 	Camera->SetIsReplicated(false);
+	
+	qTimer = 0.0f;
+	eTimer = 0.0f;
 
 
 	//gun = Cast<class ABaseWeapon>(newGun);
@@ -105,6 +108,8 @@ void ABaseCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ABaseCharacter::fireSRPC);
 	PlayerInputComponent->BindAction("Fire", IE_Released, this, &ABaseCharacter::stopFiringSRPC);
+	PlayerInputComponent->BindAction("UseQ", IE_Pressed, this, &ABaseCharacter::useQAbilitySRPC);
+	PlayerInputComponent->BindAction("UseE", IE_Pressed, this, &ABaseCharacter::useEAbilitySRPC);
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &ABaseCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ABaseCharacter::MoveRight);
@@ -167,6 +172,25 @@ bool ABaseCharacter::stopFiringSRPC_Validate() { return true; }
 void ABaseCharacter::stopFiringSRPC_Implementation() 
 {
 	gun->isFiring = false;
+}
+
+bool ABaseCharacter::useQAbilitySRPC_Validate()
+{
+	if (health > 0.0f && qTimer <= 0.0f) { return true; }
+	else { return false; }
+}
+void ABaseCharacter::useQAbilitySRPC_Implementation()
+{
+}
+
+
+bool ABaseCharacter::useEAbilitySRPC_Validate()
+{
+	if (health > 0.0f && eTimer <= 0.0f) { return true; }
+	else { return false; }
+}
+void ABaseCharacter::useEAbilitySRPC_Implementation()
+{
 }
 
 bool ABaseCharacter::takeDamageSRPC_Validate(float damage) 

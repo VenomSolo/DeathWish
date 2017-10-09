@@ -46,6 +46,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Server, WithValidation, Reliable)
 		void onHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+		
+	UFUNCTION(BlueprintCallable, Server, WithValidation, Reliable)
+		void setTrailColor(FLinearColor newColor);
 
 protected:
 	// Called when the game starts or when spawned
