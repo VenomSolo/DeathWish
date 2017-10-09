@@ -37,6 +37,18 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Statistics)
 		float armour;
+		
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Timers)
+		float qTime;
+		
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Timers)
+		float qTimer;
+		
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Timers)
+		float eTime;
+		
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Timers)
+		float eTimer;
 
 public:
 	// Sets default values for this character's properties
@@ -76,6 +88,13 @@ protected:
 
 	UFUNCTION(Server, WithValidation, Reliable, BlueprintCallable)
 	void stopFiringSRPC();
+	
+	UFUNCTION(Server, WithValidation, Reliable, BlueprintCallable)
+	void useQAbilitySRPC();
+	
+	UFUNCTION(Server, WithValidation, Reliable, BlueprintCallable)
+	void useEAbilitySRPC();
+	
 
 public:
 	UFUNCTION(Server, WithValidation, Reliable, BlueprintCallable)
