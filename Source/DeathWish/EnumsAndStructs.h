@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EnumsAndStructs.generated.h"
 
 UENUM(BlueprintType)
 enum class ETeamEnum : uint8
@@ -16,8 +17,8 @@ enum class ETeamEnum : uint8
 USTRUCT(BlueprintType)
 struct FStatisticsStruct
 {
-	GENERATED_BODY()
-		
+	GENERATED_USTRUCT_BODY();
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float health;
@@ -33,8 +34,7 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float qCooldown;
-	
-}
+};
 
 class DEATHWISH_API EnumsAndStructs
 {

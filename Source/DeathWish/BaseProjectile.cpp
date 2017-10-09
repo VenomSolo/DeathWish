@@ -19,16 +19,6 @@ ABaseProjectile::ABaseProjectile()
 	mesh->AttachToComponent(collision, FAttachmentTransformRules::KeepWorldTransform, "mesh");
 	ribbon = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ribbon"));
 	ribbon->AttachToComponent(mesh, FAttachmentTransformRules::KeepWorldTransform, "ribbon");
-	switch(team){
-		case ETeamEnum::TE_Red:
-			setTrailColor(FLinearColor(225.0f, 25.0f, 25.0f, 1.0f));
-		case ETeamEnum::TE_Blue:
-			setTrailColor(FLinearColor(25.0f, 100.0f, 225.0f, 1.0f));
-		case ETeamEnum::TE_Yellow:
-			setTrailColor(FLinearColor(235.0f, 235.0f, 40.0f, 1.0f));
-		case ETeamEnum::TE_Green:
-			setTrailColor(FLinearColor(25.0f, 225.0f, 25.0f, 1.0f));
-	}
 	movement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("movement"));
 
 }
@@ -45,7 +35,7 @@ void ABaseProjectile::onHit_Implementation(AActor * SelfActor, AActor * OtherAct
 	}
 }
 
-bool ABaseProjectile::setTrailColor_Validate(FLinearColor newColor){
+bool ABaseProjectile::setTrailColor_Validate(){
 	if (ribbon != NULL){
 		return true;
 	}
@@ -53,8 +43,17 @@ bool ABaseProjectile::setTrailColor_Validate(FLinearColor newColor){
 		return false;
 	}
 }
-void ABaseProjectile::setTrailColor_Implementation(FLinearColor newColor){
-	ribbon->SetColorParameter("trailColor", newColor);
+void ABaseProjectile::setTrailColor_Implementation(){
+	switch (team) {
+	case ETeamEnum::TE_Red:
+		ribbon->SetColorParameter("trailColor", FLinearColor(1.0f, 0.0f, 0.0f, 1.0f));
+	case ETeamEnum::TE_Blue:
+		ribbon->SetColorParameter("trailColor", FLinearColor(0.0f, 0.0f, 1.0f, 1.0f));
+	case ETeamEnum::TE_Yellow:
+		ribbon->SetColorParameter("trailColor", FLinearColor(1.0f, 1.0f, 0.0f, 1.0f));
+	case ETeamEnum::TE_Green:
+		ribbon->SetColorParameter("trailColor", FLinearColor(0.0f, 0.0f, 1.0f, 1.0f));
+	}
 }
 
 // Called when the game starts or when spawned
@@ -65,6 +64,7 @@ void ABaseProjectile::BeginPlay()
 	FScriptDelegate Delegate;
 	Delegate.BindUFunction(this, "onHit");	
 	OnActorBeginOverlap.AddUnique(Delegate);
+
 }
 
 // Called every frame

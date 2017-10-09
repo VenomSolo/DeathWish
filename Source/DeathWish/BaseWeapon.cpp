@@ -57,6 +57,7 @@ void ABaseWeapon::spawnProjectile_Implementation()
 	
 	ABaseProjectile * createdProjectile = Cast<ABaseProjectile>(GetWorld()->SpawnActor(Cast<UClass>(projectile), spawnTransform));
 	createdProjectile->team = ownerTeam;
+	createdProjectile->setTrailColor();
 
 }
 
