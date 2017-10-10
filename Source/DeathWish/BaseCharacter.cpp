@@ -51,7 +51,12 @@ ABaseCharacter::ABaseCharacter()
 	qTimer = 0.0f;
 	eTimer = 0.0f;
 
-
+	health = characterStats.health;
+	armour = characterStats.armour;
+	GetCharacterMovement()->MaxWalkSpeed = characterStats.walkSpeed;
+	qTime = characterStats.qCooldown;
+	eTime = characterStats.eCooldown;
+	
 	//gun = Cast<class ABaseWeapon>(newGun);
 	//gun = Cast<class ABaseWeapon>(UGameplayStatics::BeginSpawningActorFromClass(GetWorld(), gunClass, GetMesh()->GetSocketTransform("RightHand")));
 
