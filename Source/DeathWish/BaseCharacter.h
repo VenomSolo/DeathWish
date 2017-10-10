@@ -38,6 +38,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Statistics)
 		float armour;
 		
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Statistics)
+		FStatisticsStruct characterStats; 
+		
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Timers)
 		float qTime;
 		
