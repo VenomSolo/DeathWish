@@ -244,4 +244,10 @@ void ABaseCharacter::takeDamageSRPC_Implementation(float damage)
 	}
 }
 
+void ABaseCharacter::qAbility()
+{
+}
 
+void ABaseCharacter::eAbility()
+{
+}
