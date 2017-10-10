@@ -42,16 +42,24 @@ ABaseCharacter::ABaseCharacter()
 	CameraBoom->TargetArmLength = 300.0f; // The camera follows at this distance behind the character	
 	CameraBoom->bUsePawnControlRotation = true; // Rotate the arm based on the controller
 	*/
-												// Create a follow camera
+	
+	// Create a camera
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	//Camera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	Camera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 	Camera->SetIsReplicated(false);
 	
+	//Zero timers
 	qTimer = 0.0f;
 	eTimer = 0.0f;
 
-
+	//Initalize statistics
+	health = characterStats.health;
+	armour = characterStats.armour;
+	GetCharacterMovement()->MaxWalkSpeed = characterStats.walkSpeed;
+	qTime = characterStats.qCooldown;
+	eTime = characterStats.eCooldown;
+	
 	//gun = Cast<class ABaseWeapon>(newGun);
 	//gun = Cast<class ABaseWeapon>(UGameplayStatics::BeginSpawningActorFromClass(GetWorld(), gunClass, GetMesh()->GetSocketTransform("RightHand")));
 
@@ -89,7 +97,8 @@ void ABaseCharacter::BeginPlay()
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	
+	//Update player rotation
 	if (health > 0)
 	{
 		APlayerController * ctrl = UGameplayStatics::GetPlayerController(GetWorld(), 0);
@@ -100,6 +109,7 @@ void ABaseCharacter::Tick(float DeltaTime)
 
 }
 
+//Setup input
 void ABaseCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
 	// Set up gameplay key bindings
@@ -116,6 +126,7 @@ void ABaseCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 
 }
 
+//Move forward/backward
 void ABaseCharacter::MoveForward(float Value)
 {
 	if ((Controller != NULL) && (Value != 0.0f))
@@ -130,6 +141,7 @@ void ABaseCharacter::MoveForward(float Value)
 	}
 }
 
+//Move right/left
 void ABaseCharacter::MoveRight(float Value)
 {
 	if ((Controller != NULL) && (Value != 0.0f))
@@ -145,6 +157,7 @@ void ABaseCharacter::MoveRight(float Value)
 	}
 }
 
+//Server RPC to rotate player
 bool ABaseCharacter::rotatePlayerSRPC_Validate(FHitResult hitResult)
 {
 	if (FVector::Distance(GetActorLocation(), hitResult.ImpactPoint) >= 150.0f) {
@@ -157,6 +170,7 @@ void ABaseCharacter::rotatePlayerSRPC_Implementation(FHitResult hitResult)
 		corpseRotation = FRotator(0.0f, UKismetMathLibrary::FindLookAtRotation(gun->mesh->GetComponentLocation(), hitResult.ImpactPoint).Yaw + (180.0f - gunTransform.GetRotation().Rotator().Yaw), 0.0f);
 }
 
+//Server RPC to fire gun
 bool ABaseCharacter::fireSRPC_Validate() 
 {
 	if (health > 0.0f) { return true; }
@@ -168,12 +182,14 @@ void ABaseCharacter::fireSRPC_Implementation()
 	gun->attemptFire();
 }
 
+//Server RPC to stop firing gun if gun can fire continuously
 bool ABaseCharacter::stopFiringSRPC_Validate() { return true; }
 void ABaseCharacter::stopFiringSRPC_Implementation() 
 {
 	gun->isFiring = false;
 }
 
+//Server RPC to activate Q ability
 bool ABaseCharacter::useQAbilitySRPC_Validate()
 {
 	if (health > 0.0f && qTimer <= 0.0f) { return true; }
@@ -181,9 +197,12 @@ bool ABaseCharacter::useQAbilitySRPC_Validate()
 }
 void ABaseCharacter::useQAbilitySRPC_Implementation()
 {
+	qAbility();
 }
 
 
+
+//Server RPC to activate E ability
 bool ABaseCharacter::useEAbilitySRPC_Validate()
 {
 	if (health > 0.0f && eTimer <= 0.0f) { return true; }
@@ -191,8 +210,10 @@ bool ABaseCharacter::useEAbilitySRPC_Validate()
 }
 void ABaseCharacter::useEAbilitySRPC_Implementation()
 {
+	eAbility();
 }
 
+//Server RPC to apply damage to player
 bool ABaseCharacter::takeDamageSRPC_Validate(float damage) 
 {
 	if (health > 0.0f) { return true; }

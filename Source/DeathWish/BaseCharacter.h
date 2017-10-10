@@ -38,6 +38,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Statistics)
 		float armour;
 		
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Statistics)
+		FStatisticsStruct characterStats; 
+		
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Timers)
 		float qTime;
 		
@@ -94,6 +97,12 @@ protected:
 	
 	UFUNCTION(Server, WithValidation, Reliable, BlueprintCallable)
 	void useEAbilitySRPC();
+	
+	UFUNCTION(Reliable, BlueprintCallable)
+	virtual void qAbility();
+	
+	UFUNCTION(Reliable, BlueprintCallable)
+	virtual void eAbility();
 	
 
 public:
