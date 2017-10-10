@@ -98,6 +98,12 @@ protected:
 	UFUNCTION(Server, WithValidation, Reliable, BlueprintCallable)
 	void useEAbilitySRPC();
 	
+	UFUNCTION(Reliable, BlueprintCallable)
+	virtual void qAbility();
+	
+	UFUNCTION(Reliable, BlueprintCallable)
+	virtual void eAbility();
+	
 
 public:
 	UFUNCTION(Server, WithValidation, Reliable, BlueprintCallable)
