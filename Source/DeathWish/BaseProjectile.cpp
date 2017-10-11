@@ -47,13 +47,13 @@ void ABaseProjectile::setTrailColor_Implementation(ETeamEnum newTeam){
 	team = newTeam;
 	switch (newTeam) {
 	case ETeamEnum::TE_Red:
-		//ribbon->GetMaterial(0)->OverrideVectorParameterDefault("trailColor", FLinearColor(1.0f, 0.0f, 0.0f, 1.0f), true, ERHIFeatureLevel::ES2);
+		ribbon->SetVectorParameter("trailColor", FVector(1.0f, 0.0f, 0.0f));
 	case ETeamEnum::TE_Blue:
-		ribbon->SetColorParameter("trailColor", FLinearColor(1.0f, 0.0f, 0.0f, 1.0f));
+		ribbon->SetVectorParameter("trailColor", FVector(0.0f, 0.0f, 1.0f));
 	case ETeamEnum::TE_Yellow:
 		ribbon->SetVectorParameter("trailColor", FVector(1.0f, 1.0f, 0.0f));
 	case ETeamEnum::TE_Green:
-		ribbon->SetColorParameter("trailColor", FLinearColor(0.0f, 0.0f, 1.0f, 1.0f));
+		ribbon->SetVectorParameter("trailColor", FVector(0.0f, 1.0f, 0.0f));
 	}
 }
 
