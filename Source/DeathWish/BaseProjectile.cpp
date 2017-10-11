@@ -35,7 +35,7 @@ void ABaseProjectile::onHit_Implementation(AActor * SelfActor, AActor * OtherAct
 	}
 }
 
-bool ABaseProjectile::setTrailColor_Validate(ETeamEnum newTeam){
+bool ABaseProjectile::setTrailColor_Validate(){
 	if (ribbon != NULL){
 		return true;
 	}
@@ -43,15 +43,14 @@ bool ABaseProjectile::setTrailColor_Validate(ETeamEnum newTeam){
 		return false;
 	}
 }
-void ABaseProjectile::setTrailColor_Implementation(ETeamEnum newTeam){
-	team = newTeam;
-	switch (newTeam) {
+void ABaseProjectile::setTrailColor_Implementation(){
+	switch (team) {
 	case ETeamEnum::TE_Red:
-		//ribbon->GetMaterial(0)->OverrideVectorParameterDefault("trailColor", FLinearColor(1.0f, 0.0f, 0.0f, 1.0f), true, ERHIFeatureLevel::ES2);
-	case ETeamEnum::TE_Blue:
 		ribbon->SetColorParameter("trailColor", FLinearColor(1.0f, 0.0f, 0.0f, 1.0f));
+	case ETeamEnum::TE_Blue:
+		ribbon->SetColorParameter("trailColor", FLinearColor(0.0f, 0.0f, 1.0f, 1.0f));
 	case ETeamEnum::TE_Yellow:
-		ribbon->SetVectorParameter("trailColor", FVector(1.0f, 1.0f, 0.0f));
+		ribbon->SetColorParameter("trailColor", FLinearColor(1.0f, 1.0f, 0.0f, 1.0f));
 	case ETeamEnum::TE_Green:
 		ribbon->SetColorParameter("trailColor", FLinearColor(0.0f, 0.0f, 1.0f, 1.0f));
 	}
@@ -65,7 +64,6 @@ void ABaseProjectile::BeginPlay()
 	FScriptDelegate Delegate;
 	Delegate.BindUFunction(this, "onHit");	
 	OnActorBeginOverlap.AddUnique(Delegate);
-	OnActorEndOverlap.AddUnique(Delegate);
 
 }
 

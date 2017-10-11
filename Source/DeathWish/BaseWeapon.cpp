@@ -56,7 +56,8 @@ void ABaseWeapon::spawnProjectile_Implementation()
 		muzzleTransform.GetScale3D());
 	
 	ABaseProjectile * createdProjectile = Cast<ABaseProjectile>(GetWorld()->SpawnActor(Cast<UClass>(projectile), spawnTransform));
-	createdProjectile->setTrailColor(ownerTeam);
+	createdProjectile->team = ownerTeam;
+	createdProjectile->setTrailColor();
 
 }
 
