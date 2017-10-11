@@ -48,7 +48,7 @@ public:
 		void onHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult& Hit);
 		
 	UFUNCTION(BlueprintCallable, Server, WithValidation, Reliable)
-		void setTrailColor();
+		void setTrailColor(ETeamEnum newTeam);
 
 protected:
 	// Called when the game starts or when spawned

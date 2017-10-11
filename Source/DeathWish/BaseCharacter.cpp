@@ -52,13 +52,6 @@ ABaseCharacter::ABaseCharacter()
 	//Zero timers
 	qTimer = 0.0f;
 	eTimer = 0.0f;
-
-	//Initalize statistics
-	health = characterStats.health;
-	armour = characterStats.armour;
-	GetCharacterMovement()->MaxWalkSpeed = characterStats.walkSpeed;
-	qTime = characterStats.qCooldown;
-	eTime = characterStats.eCooldown;
 	
 	//gun = Cast<class ABaseWeapon>(newGun);
 	//gun = Cast<class ABaseWeapon>(UGameplayStatics::BeginSpawningActorFromClass(GetWorld(), gunClass, GetMesh()->GetSocketTransform("RightHand")));
@@ -88,6 +81,13 @@ void ABaseCharacter::BeginPlay()
 	gun->AttachToComponent(this->GetMesh(), *componentAttachmentRules, "RightHand");
 	gun->ownerTeam = team;
 	
+
+	//Initalize statistics
+	health = characterStats.health;
+	armour = characterStats.armour;
+	GetCharacterMovement()->MaxWalkSpeed = characterStats.walkSpeed;
+	qTime = characterStats.qCooldown;
+	eTime = characterStats.eCooldown;
 
 	//Show cursor
 	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
@@ -174,7 +174,7 @@ void ABaseCharacter::rotatePlayerSRPC_Implementation(FHitResult hitResult)
 bool ABaseCharacter::fireSRPC_Validate() 
 {
 	if (health > 0.0f) { return true; }
-	else { return false; }
+	else { return true; }
 }
 void ABaseCharacter::fireSRPC_Implementation()
 {
