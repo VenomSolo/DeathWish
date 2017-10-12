@@ -89,6 +89,8 @@ void ABaseCharacter::BeginPlay()
 	qTime = characterStats.qCooldown;
 	eTime = characterStats.eCooldown;
 
+	objects.Add((UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_WorldStatic)));
+	
 	//Show cursor
 	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
 }
@@ -103,7 +105,8 @@ void ABaseCharacter::Tick(float DeltaTime)
 	{
 		APlayerController * ctrl = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 		FHitResult hitResult;
-		ctrl->GetHitResultUnderCursorByChannel(ETraceTypeQuery::TraceTypeQuery1, true, hitResult);
+		//ctrl->GetHitResultUnderCursorByChannel(UEngineTypes::ConvertToTraceType(ECC_GameTraceChannel1), true, hitResult);
+		ctrl->GetHitResultUnderCursorForObjects(objects, true, hitResult);
 		rotatePlayerSRPC(hitResult);
 	}
 
@@ -160,7 +163,7 @@ void ABaseCharacter::MoveRight(float Value)
 //Server RPC to rotate player
 bool ABaseCharacter::rotatePlayerSRPC_Validate(FHitResult hitResult)
 {
-	if (FVector::Distance(GetActorLocation(), hitResult.ImpactPoint) >= 150.0f) {
+	if (FVector::Distance(GetActorLocation(), hitResult.ImpactPoint) > GetCapsuleComponent()->GetUnscaledCapsuleRadius()*1.5) {
 		return true;
 	}
 	else { return false; }

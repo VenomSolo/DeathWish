@@ -53,6 +53,8 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Timers)
 		float eTimer;
 
+	TArray<TEnumAsByte<EObjectTypeQuery>> objects;
+
 public:
 	// Sets default values for this character's properties
 	ABaseCharacter();

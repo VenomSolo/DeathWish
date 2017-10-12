@@ -48,12 +48,16 @@ void ABaseProjectile::setTrailColor_Implementation(ETeamEnum newTeam){
 	switch (newTeam) {
 	case ETeamEnum::TE_Red:
 		ribbon->SetVectorParameter("trailColor", FVector(1.0f, 0.0f, 0.0f));
+		break;
 	case ETeamEnum::TE_Blue:
 		ribbon->SetVectorParameter("trailColor", FVector(0.0f, 0.0f, 1.0f));
+		break;
 	case ETeamEnum::TE_Yellow:
 		ribbon->SetVectorParameter("trailColor", FVector(1.0f, 1.0f, 0.0f));
+		break;
 	case ETeamEnum::TE_Green:
 		ribbon->SetVectorParameter("trailColor", FVector(0.0f, 1.0f, 0.0f));
+		break;
 	}
 }
 
