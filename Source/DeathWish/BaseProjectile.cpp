@@ -26,6 +26,8 @@ ABaseProjectile::ABaseProjectile()
 bool ABaseProjectile::onHit_Validate(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult& Hit) { return true; }
 void ABaseProjectile::onHit_Implementation(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
+	OnActorBeginOverlap.RemoveAll(Cast<UObject>(this));
+	OnActorEndOverlap.RemoveAll(Cast<UObject>(this));
 
 	ABaseCharacter * hitPlayer = Cast<ABaseCharacter>(OtherActor);
 	if (hitPlayer != NULL && hitPlayer->team != team) 

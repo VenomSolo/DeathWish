@@ -55,8 +55,10 @@ void ABaseWeapon::spawnProjectile_Implementation()
 		muzzleTransform.GetLocation(),
 		muzzleTransform.GetScale3D());
 	
-	ABaseProjectile * createdProjectile = Cast<ABaseProjectile>(GetWorld()->SpawnActor(Cast<UClass>(projectile), spawnTransform));
-	createdProjectile->setTrailColor(ownerTeam);
+	FActorSpawnParameters spawnParams;
+	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	ABaseProjectile * createdProjectile = Cast<ABaseProjectile>(GetWorld()->SpawnActor(Cast<UClass>(projectile), spawnTransform, spawnParams));
+	if (createdProjectile != NULL) { createdProjectile->setTrailColor(ownerTeam); }
 
 }
 

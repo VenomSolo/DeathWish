@@ -91,6 +91,22 @@ void ABaseCharacter::BeginPlay()
 
 	objects.Add((UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_WorldStatic)));
 	
+	//Set outline color
+	switch (team) {
+	case ETeamEnum::TE_Red:
+		GetMesh()->SetCustomDepthStencilValue(254);
+		break;
+	case ETeamEnum::TE_Blue:
+		GetMesh()->SetCustomDepthStencilValue(253);
+		break;
+	case ETeamEnum::TE_Yellow:
+		GetMesh()->SetCustomDepthStencilValue(255);
+		break;
+	case ETeamEnum::TE_Green:
+		GetMesh()->SetCustomDepthStencilValue(252);
+		break;
+	}
+
 	//Show cursor
 	UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
 }
@@ -224,12 +240,12 @@ bool ABaseCharacter::takeDamageSRPC_Validate(float damage)
 }
 void ABaseCharacter::takeDamageSRPC_Implementation(float damage)
 {
-	if (armour > 0) 
+	if (armour > 0.0f) 
 	{
 		armour -= damage;
-		if (armour < 0) 
+		if (armour < 0.0f) 
 		{
-			armour = 0;
+			armour = 0.0f;
 		}
 	}
 	else
