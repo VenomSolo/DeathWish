@@ -271,3 +271,33 @@ void ABaseCharacter::qAbility()
 void ABaseCharacter::eAbility()
 {
 }
+
+bool ABaseCharacter::applyBuff_Validate() 
+{
+	if (health > 0.0f) { return true; }
+	else { return true; }
+}
+void ABaseCharacter::applyBuff_Implementation()
+{
+	//Buff
+}
+
+bool ABaseCharacter::applyDebuff_Validate() 
+{
+	if (health > 0.0f) { return true; }
+	else { return true; }
+}
+void ABaseCharacter::applyDebuff_Implementation()
+{
+	//Debuff
+}
+
+bool ABaseCharacter::applyEffect_Validate() 
+{
+	if (health > 0.0f) { return true; }
+	else { return true; }
+}
+void ABaseCharacter::applyEffect_Implementation()
+{
+	//Effect
+}
