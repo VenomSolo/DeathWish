@@ -39,6 +39,9 @@ public:
 		float armour;
 		
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Statistics)
+		float resistance;
+		
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Statistics)
 		FStatisticsStruct characterStats; 
 		
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Timers)
