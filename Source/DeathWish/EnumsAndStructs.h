@@ -23,6 +23,14 @@ enum class EDebuffEnum : uint8
 };
 
 UENUM(BlueprintType)
+enum class EBuffEnum : uint8
+{
+	DE_Speed	UMETA(DisplayName = "Speed"),
+	DE_Resistance 	UMETA(DisplayName = "Resistance"),
+	DE_Steady	UMETA(DisplayName = "Steady"),
+};
+
+UENUM(BlueprintType)
 enum class EEffectEnum : uint8
 {
 	EE_Wounded 	UMETA(DisplayName = "Wounded"),
