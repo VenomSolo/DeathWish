@@ -85,6 +85,7 @@ void ABaseCharacter::BeginPlay()
 	//Initalize statistics
 	health = characterStats.health;
 	armour = characterStats.armour;
+	resistance = characterStats.resistance;
 	GetCharacterMovement()->MaxWalkSpeed = characterStats.walkSpeed;
 	qTime = characterStats.qCooldown;
 	eTime = characterStats.eCooldown;
@@ -250,7 +251,7 @@ void ABaseCharacter::takeDamageSRPC_Implementation(float damage)
 	}
 	else
 	{
-		health -= damage;
+		health -= damage * resistance;
 		if (health <= 0) 
 		{
 			stopFiringSRPC();
