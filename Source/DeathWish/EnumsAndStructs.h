@@ -54,6 +54,9 @@ public:
 	float armour;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float resistance;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float walkSpeed;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
