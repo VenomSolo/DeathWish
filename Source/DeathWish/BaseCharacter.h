@@ -109,6 +109,11 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	virtual void eAbility();
 	
+	UFUNCTION(Server, WithValidation, Reliable, BlueprintCallable)
+	void applyDebuff(EDebuffEnum debuff, float time);
+	
+	UFUNCTION(Server, WithValidation, Reliable, BlueprintCallable)
+	void applyBuff(EBuffEnum buff, float time);
 
 public:
 	UFUNCTION(Server, WithValidation, Reliable, BlueprintCallable)
