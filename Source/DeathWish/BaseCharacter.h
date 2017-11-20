@@ -110,10 +110,13 @@ protected:
 	virtual void eAbility();
 	
 	UFUNCTION(Server, WithValidation, Reliable, BlueprintCallable)
-	void applyDebuff(EDebuffEnum debuff, float time);
+	void applyDebuff(EDebuffEnum debuff, float value, float time);
 	
 	UFUNCTION(Server, WithValidation, Reliable, BlueprintCallable)
-	void applyBuff(EBuffEnum buff, float time);
+	void applyBuff(EBuffEnum buff, float value, float time);
+	
+	UFUNCTION(Server, WithValidation, Reliable, BlueprintCallable)
+	void applyEffect(EEffectEnum buff, float time);
 
 public:
 	UFUNCTION(Server, WithValidation, Reliable, BlueprintCallable)
